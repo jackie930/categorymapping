@@ -21,14 +21,14 @@ python prepare.py --split_idx 100
 
 单机多卡: 启动一个带有GPU机型的机器, 至少是g5.12xlarge, 训练时运行
 ```shell
-accelerate launch train_Clip_ViT_pairwise_emb.py --model_name 'openai/clip-vit-large-patch14-336' --train_data_file '../data/train/train_vit_pairwise.json' --test_data_file '../data/train/test_vit_pairwise.json' \
+accelerate launch train_Clip_ViT_fullfc.py --model_name 'openai/clip-vit-large-patch14-336' --train_data_file '../data/train/train_vit_pairwise.json' --test_data_file '../data/train/test_vit_pairwise.json' \
 --image_dir '../data/images' --max_epoch 3 \
 --batch_size 8
 ```
 
 单卡a10:
 ```shell
-python train_Clip_ViT_pairwise_emb.py --model_name 'openai/clip-vit-large-patch14-336' --train_data_file '../data/train/train_vit_pairwise.json' --test_data_file '../data/train/test_vit_pairwise.json' \
+python train_Clip_ViT_fullfc.py --model_name 'openai/clip-vit-large-patch14-336' --train_data_file '../data/train/train_vit_pairwise.json' --test_data_file '../data/train/test_vit_pairwise.json' \
 --image_dir '../data/images' --max_epoch 3 \
 --batch_size 8
 ```
