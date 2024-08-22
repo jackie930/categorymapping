@@ -14,7 +14,12 @@ from tqdm import tqdm
 from accelerate import Accelerator
 from PIL import Image
 
-accelerator = Accelerator()
+from accelerate import DistributedDataParallelKwargs
+
+ddp_kwargs = DistributedDataParallelKwargs(find_unused_parameters=True)
+accelerator = Accelerator(kwargs_handlers=[ddp_kwargs])
+
+#accelerator = Accelerator()
 
 # 检查是否有GPU可用
 print(f"是否有GPU可用: {torch.cuda.is_available()}")

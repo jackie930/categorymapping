@@ -75,7 +75,10 @@ def get_test_res(df):
 def main(df_master, res_de, res_us, split_idx):
     train_set = df_master.iloc[:split_idx, :]
     # todo: update test mapping
-    test_set = df_master.iloc[-split_idx:, :]
+    test_set = df_master.iloc[split_idx:, :]
+    print("<< 总类目匹配数量: ", len(train_set))
+    print("<< 训练匹配数量: ", split_idx)
+    print("<< 评估类目: ", len(test_set))
 
     train_res_df = get_res(train_set, res_de, res_us)
     ##version 1, single tower
@@ -114,8 +117,15 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--split_idx', type=int, default=100)
     df_master = pd.read_excel('../data/明确对应关系的类目数据.xlsx')
+
     res_de = pd.read_csv('../data/train/de_data.csv')
     res_us = pd.read_csv('../data/train/us_data.csv')
+    res_de_cate = res_de['category_name'].unique()
+    res_us_cate = res_us['category_name'].unique()
+
+    df_master = pd.merge(df_master, pd.DataFrame({'德亚亚马逊类目名称': res_de_cate}), on='德亚亚马逊类目名称')
+    df_master = pd.merge(df_master, pd.DataFrame({'对应美亚类目': res_us_cate}), on='对应美亚类目')
+    print("<< 总类目数量: ", len(df_master))
 
     args = parser.parse_args()
     main(df_master, res_de, res_us, args.split_idx)

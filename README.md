@@ -14,12 +14,13 @@
 运行如下预处理脚本, 会生成三个json文件, 分别用于模[]()型训练/模型测试/模型评估
 
 ```shell
+!pip install openpyxl accelerate transformers
 python prepare.py --split_idx 100
 ```
 
 ## 模型训练
 
-单机多卡: 启动一个带有GPU机型的机器, 至少是g5.12xlarge, 训练时运行
+单机多卡: 启动一个带有GPU机型的多卡机器, 至少是g5.12xlarge, 训练时运行
 ```shell
 accelerate launch train_Clip_ViT_fullfc.py --model_name 'openai/clip-vit-large-patch14-336' --train_data_file '../data/train/train_vit_pairwise.json' --test_data_file '../data/train/test_vit_pairwise.json' \
 --image_dir '../data/images' --max_epoch 3 \
