@@ -1,11 +1,10 @@
+##生成用于训练的train/test split
 import pandas as pd
 import os
 from tqdm import tqdm
 import random
 import argparse
-import numpy as np
 import json
-
 
 def get_res(df, res_de, res_us):
     cates = df['德亚亚马逊类目名称']

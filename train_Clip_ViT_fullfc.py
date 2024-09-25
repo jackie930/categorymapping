@@ -230,22 +230,6 @@ def train(args):
         accelerator.save(unwrapped_model.state_dict(), os.path.join(args.save_path, "model.pth"))
         print("Model is saved: {}".format(os.path.join(args.save_path, "model.pth")))
 
-    model.eval()
-    ss = []
-    for id,text1, text2, image1,image2, label in tqdm(data_loader_test):
-        output,score = model(text1, text2,image1,image2)
-        
-        # print(output)
-        prediction = accelerator.gather_for_metrics(output.item())
-        score = accelerator.gather_for_metrics(score.item())
-        # print(prediction)
-        # prediction = prediction.cpu().numpy()
-
-
-        ss.append([id[0],prediction,score,label.cpu().numpy()[0]])
-    ss = pd.DataFrame(ss,columns=['image','predict','score','label'])
-    ss.to_csv(os.path.join(args.save_path, 'pred.csv'), index=False)
-
 
 if __name__ == "__main__":
     try:
