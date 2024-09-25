@@ -44,3 +44,12 @@ python infer_Clip_ViT_fullfc.py  --model_name 'vit_pairwise_model_emb/model.pth'
 ```shell
 python eval.py 
 ```
+
+## 模型使用-单条推理
+```shell
+python local_infer_single.py --model_path 'vit_pairwise_model_emb/model.pth' \
+--image1 '../data/images/41H+cMdoqqL._AC_US200_.jpg' \
+--text1 '../data/images/61bf5e+XrAL._AC_US200_.jpg'\
+--image2 'Gewerbe, Industrie & Wissenschaft:Materialtransport, Ladungssicherung & Zubehör:Zieh- & Hebevorrichtungen:Haken' \
+--text2 'Beauty & Personal Care:Hair Care:Hair Extensions, Wigs & Accessories:Wigs'
+```
