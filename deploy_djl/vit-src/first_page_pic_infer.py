@@ -15,7 +15,7 @@ def expand2square(pil_img, background_color):
         result.paste(pil_img, ((height - width) // 2, 0))
         return result
 
-def process_image(img_path,vit_image_processor,device):
+def process_image(image1,vit_image_processor,device):
     #image1 = Image.open(img_path).convert("RGB")
     image1 = expand2square(image1, tuple(int(x * 255) for x in vit_image_processor.image_mean))
     image1 = vit_image_processor.preprocess(image1, return_tensors='pt')['pixel_values'][0].unsqueeze(0).to(device)

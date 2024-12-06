@@ -71,7 +71,7 @@ def handle(inputs: Input):
     else:
         image2 = Image.open(image_file2).convert("RGB")
 
-    tokenizer, emb_model, vit_image_processor, vit_model = model_dict['tokenizer'], model_dict['emb_model'], model_dict['vit_model']
+    tokenizer, emb_model, vit_image_processor, vit_model = model_dict['tokenizer'], model_dict['emb_model'], model_dict['vit_image_processor'], model_dict['vit_model']
 
     image1 = process_image(image1, vit_image_processor, device)
     image2 = process_image(image2, vit_image_processor, device)
