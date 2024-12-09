@@ -7,6 +7,7 @@ from PIL import Image
 from djl_python import Input, Output
 import requests
 from io import BytesIO
+import base64, json
 
 from first_page_pic_infer import expand2square,process_image,get_inputs,Pairwise_ViT_Infer
 from transformers import CLIPVisionModel, CLIPImageProcessor, AutoTokenizer, AutoModel
@@ -63,13 +64,14 @@ def handle(inputs: Input):
         response = requests.get(image_file1)
         image1 = Image.open(BytesIO(response.content)).convert("RGB")
     else:
-        image1 = Image.open(image_file1).convert("RGB")
+        image1 = Image.open(BytesIO(base64.b64decode(image_file1)))
+
 
     if image_file2.startswith("http") or image_file2.startswith("https"):
         response = requests.get(image_file2)
         image2 = Image.open(BytesIO(response.content)).convert("RGB")
     else:
-        image2 = Image.open(image_file2).convert("RGB")
+        image2 = Image.open(BytesIO(base64.b64decode(image_file2)))
 
     tokenizer, emb_model, vit_image_processor, vit_model = model_dict['tokenizer'], model_dict['emb_model'], model_dict['vit_image_processor'], model_dict['vit_model']
 
